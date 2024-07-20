@@ -1,9 +1,15 @@
 import random
+import time
+
+def print_pause(message, delay=1):
+    print(message)
+    time.sleep(delay)
 
 def game_intro():
-    print("Yo! Welcome to the Mysterious Forest Adventure!")
-    print("You’ve found yourself in a spooky forest. The goal? Get out of here alive and with the highest score possible.")
-    print("Be careful though, weird stuff is happening all around.\n")
+    print_pause("Yo! Welcome to the Mysterious Forest Adventure!")
+    print_pause("You’ve found yourself in a spooky forest. The goal? Get out of here")
+    print_pause("alive and with the highest score possible. Be careful though, weird")
+    print_pause("stuff is happening all around.\n")
 
 def choose_path():
     print("You see two paths ahead:")
@@ -18,24 +24,24 @@ def encounter(choice):
     if choice == 1:
         event = random.choice(["wild animal", "abandoned hut", "trap"])
         if event == "wild animal":
-            print("Uh-oh! A wild animal jumps out and attacks you!")
+            print_pause("Uh-oh! A wild animal jumps out and attacks you!")
             return "lose", -10
         elif event == "abandoned hut":
-            print("You find a creepy abandoned hut with some useful stuff inside.")
+            print_pause("You find a creepy abandoned hut with some useful stuff inside.")
             return "continue", 5
         elif event == "trap":
-            print("Oh no! You stepped into a trap and can’t get out.")
+            print_pause("Oh no! You stepped into a trap and can’t get out.")
             return "lose", -10
     else:
         event = random.choice(["hidden treasure", "dead end", "friendly guide"])
         if event == "hidden treasure":
-            print("Score! You found hidden treasure! You win!")
+            print_pause("Score! You found hidden treasure! You win!")
             return "win", 20
         elif event == "dead end":
-            print("Bummer, it’s a dead end. You have to turn back.")
+            print_pause("Bummer, it’s a dead end. You have to turn back.")
             return "continue", 0
         elif event == "friendly guide":
-            print("Nice! A friendly guide helps you find the way out. You win!")
+            print_pause("Nice! A friendly guide helps you find the way out. You win!")
             return "win", 20
 
 def play_again():
@@ -52,20 +58,21 @@ def play_game():
         choice = choose_path()
         result, points = encounter(choice)
         score += points
+        print_pause(f"Current score: {score}")
         if result == "win":
             game_over = True
-            print(f"Congrats, you made it out of the forest! Your final score is: {score}")
+            print_pause(f"Congrats, you made it out of the forest! Your final score is: {score}")
         elif result == "lose":
             game_over = True
-            print(f"Game over. Better luck next time. Your final score is: {score}")
+            print_pause(f"Game over. Better luck next time. Your final score is: {score}")
         elif result == "continue":
-            print("You keep moving through the forest.\n")
+            print_pause("You keep moving through the forest.\n")
         if game_over and play_again():
             game_over = False
             score = 0
-            print("\nStarting a new game...\n")
+            print_pause("\nStarting a new game...\n")
         elif game_over:
-            print("Thanks for playing the Mysterious Forest Adventure!")
+            print_pause("Thanks for playing the Mysterious Forest Adventure!")
 
 if __name__ == "__main__":
     play_game()
